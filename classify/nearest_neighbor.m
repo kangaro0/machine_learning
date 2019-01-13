@@ -1,5 +1,6 @@
 function [C,P] = nearest_neighbor(train,test,n,r)
 
+dim = sqrt(size(test(:,1),1));
 C = zeros(length(test(:,1)),1);
 P = zeros(length(test(:,1)),1);
 
@@ -27,5 +28,8 @@ for i=1:s
     C(i) = mode(neighbors);
     P(i) = length(find(neighbors == C(i)))/n;
 end
+
+C = reshape(C,[dim,dim]);
+P = reshape(P,[dim,dim]);
 
 end
