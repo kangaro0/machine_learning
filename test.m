@@ -26,8 +26,10 @@ cc = length(names);
 % Nearest Neighbor
 %[C,P] = nearest_neighbor(data,[X(:) Y(:)],5,2);
 % Parzen
-E = [ 0.5,0.1;0.1,0.5 ];
-[C,P] = parzen(data,[X(:) Y(:)],cc,E);
+%E = [ 0.25,0;0,0.25 ];
+%[C,P] = parzen(data,[X(:) Y(:)],cc,E);
+% Normal distribution
+[C,P] = normal_dist(data,[X(:) Y(:)],cc);
 
 % Generate colors
 Col = generate_colors(C);
