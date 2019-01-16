@@ -12,11 +12,7 @@ end
 % Calculate mean and covariance matrix for each class
 for i=1:cc
     % Find indices which correspond to current class
-    idx = find(cell2mat(train(:,2))==i);
-    from = min(idx);
-    to = max(idx);
-    % Extract current class data from train vector
-    T = cell2mat(train(from:to,1));
+    T = getbyclass(train,i);
     % Calculate mean and cov
     m = mean(T);
     C = cov(T);
