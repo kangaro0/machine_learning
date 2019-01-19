@@ -1,6 +1,6 @@
 function Q = calc_Q2(x,cc)
 
-dim = size(x,2);
+dim = size(x{1},1);
 Q = zeros(dim,dim);
 
 % For each class
@@ -12,9 +12,16 @@ for i=1:cc
     f = 1/(cc*(cc-1));
     S = zeros(dim,dim);
     for j=2:cc
-        mk = mean(getbyclass(x,j));
+        % Transform to row contain one picture
+        jj = getbyclass(x,j);
+        jj = cell2mat(jj(:,1)');
+        
+        mk = mean(jj,2);
         for k=1:j-1
-            ma = mean(getbyclass(x,k));
+            kk = getbyclass(x,k);
+            kk = cell2mat(kk(:,1)');
+            
+            ma = mean(kk,2);
             S = S+(mk*ma'+ma*mk');
         end
     end

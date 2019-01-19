@@ -1,47 +1,44 @@
 function [C,P] = parzen(train,test,cc,E)
 
-dim = sqrt(size(test(:,1),1));
-C = zeros(dim,dim);
-P = zeros(dim,dim);
+testp = cell2mat(test(:,1));
+testc = cell2mat(test(:,2));
 
-% Initialize class distribution with 0s
+dimX = size(testp,1);
+
+C = zeros(dimX,1);
+P = zeros(dimX,1);
+
+% Initialize class propabilites
 P_a = cell(cc,1);
 for i=1:cc
-    P_a{i} = zeros(dim,dim);
+    P_a{i} = P;
 end
-
-% For each testing point
-l = size(train,1);
-for i=1:l
-    c = train{i,:};
-    ci = train{i,2};
+% Calculate cumulative normal distribution for each class
+for i=1:cc
+    c = getbyclass(train,i);
     
-    % Calculate multivariate normal distribution
-    nd = reshape(mvnpdf(test,c,E),[dim,dim]);
-    % Add to classdistribution
-    P_a{ci} = P_a{ci} + nd;
+    for j=1:size(c,1)
+        f = c{i,:};
+        nd = mvnpdf(testp,f,E);
+        P_a{i} = P_a{i} + nd;
+    end
 end
-
-% Plot class distribution
-%surf(reshape(test(:,1),[dim,dim]),reshape(test(:,2),[dim,dim]),P_a{1});
 
 % For each testpoint
-X = reshape(test(:,1),[dim,dim]);
-Y = reshape(test(:,2),[dim,dim]);
-for y=1:dim
-    for x=1:dim
-        % Find highest probability
-        p_h = 0;
-        c_h = 0;
-        for i=1:cc
-            if P_a{i}(y,x) > p_h
-                p_h = P_a{i}(y,x);
-                c_h = i;
-            end
+for i=1:size(testp,1)
+    f = testp(i,:);
+    
+    p_h = 0;
+    c_h = 0;
+    for j=1:cc
+        if P_a{j}(i) > p_h
+            p_h = P_a{j}(i);
+            c_h = j;
         end
-        P(y,x) = p_h;
-        C(y,x) = c_h;
     end
+    
+    P{i} = p_h;
+    C{i} = c_h;
 end
 
 end

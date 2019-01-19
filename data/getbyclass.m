@@ -4,8 +4,12 @@ function D = getbyclass(data,c)
 idx = find(cell2mat(data(:,2))==c);
 from = idx(1);
 to = idx(end);
+count = to-from;
 
 % Extract current class data from data
-D = cell2mat(data(from:to,1));
+D = cell(count,2);
+for i=1:count
+    D(i,:) = data(i,:);
+end
 
 end

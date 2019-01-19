@@ -26,7 +26,7 @@ cc = length(names);
 % Nearest Neighbor
 [C,P] = nearest_neighbor(data,[X(:) Y(:)],5,2);
 % Parzen
-%E = [ 0.25,0;0,0.25 ];
+% = [ 0.25,0;0,0.25 ];
 %[C,P] = parzen(data,[X(:) Y(:)],cc,E);
 % Normal distribution
 %[C,P] = normal_dist(data,[X(:) Y(:)],cc);

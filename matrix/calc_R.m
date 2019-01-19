@@ -1,11 +1,12 @@
 function Y = calc_R( x )
 
-dim = size(x,2);
+dim = size(x{1},1);
 Y = zeros(dim,dim);
 
+% For each dataset
 n = size(x,1);
 for i=1:n
-    f = x(i,:);
+    f = x{i};
     Y = Y + f * f';
 end
 
