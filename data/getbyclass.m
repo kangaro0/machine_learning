@@ -6,10 +6,13 @@ from = idx(1);
 to = idx(end);
 count = to-from;
 
-% Extract current class data from data
-D = cell(count,2);
-for i=1:count
-    D(i,:) = data(i,:);
-end
+% This is better :)
+D = data(from:to,:);
+
+% % Extract current class data from data
+% D = cell(count,2);
+% for i=1:count
+%     D(i,:) = data(i,:);
+% end
 
 end

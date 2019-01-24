@@ -24,7 +24,7 @@ cc = length(unique(classes));
 %Q3 = calc_Q3(train,cc);
 
 % Merkmalsdimension
-dim = 10;
+dim = 2;
 
 % Transformationsmatrizen
 %A1 = calc_A(Q1,dim);
@@ -39,7 +39,7 @@ test = transform(test,A2);
 %   Klassifikation
 %
 
-E = diag([10,10,10,10,10,10,10,10,10,10]);
+E = diag([10,10]);
 [C,P]=parzen(train,test,cc,E);
 
 % Display
